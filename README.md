@@ -40,4 +40,4 @@ npm test
 
 #### Attribution
 
-Relied heavily on class demo for Collections class, and much of this lab is identical to lab 03.
+Built from starter code
