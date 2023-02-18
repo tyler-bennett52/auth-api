@@ -106,4 +106,15 @@ describe ('Auth API server',  () => {
       let parsedSecret = JSON.parse(secretResponse.text);
       expect(parsedSecret).toBe(1);
     });
+
+    it('Can CRUD to v1 with no credentials', async () => {
+      await mockRequest.post('/api/v1/food').send({name: 'Pizza', calories: 200, type: 'protein'});
+      await mockRequest.post('/api/v1/food').send({name: 'Cheese', calories: 200, type: 'protein'});
+      await mockRequest.post('/api/v1/food').send({name: 'Lettuce', calories: 200, type: 'protein'});
+      await mockRequest.put('/api/v1/food/3').send({name: 'Sauce', calories: 200, type: 'protein'});
+      await mockRequest.delete('/api/v1/food/3')
+      let response = await mockRequest.get('/api/v1/food');
+      expect(response.body.length).toBe(2)
+
+    });
 });
