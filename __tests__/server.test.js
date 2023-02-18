@@ -72,6 +72,14 @@ describe ('Auth API server',  () => {
     expect(secretResponse.body.length).toBe(1)
   });
 
+  it('Allows users to getOne from /:model', async () => {
+    let response = await mockRequest.post('/signin').auth(username, password);
+    let parsedResponse = JSON.parse(response.text);
+    const userToken = parsedResponse.token
+    let secretResponse = await mockRequest.get('/api/v2/clothes/1').set('Authorization', `Bearer ${userToken}`);
+    expect(secretResponse.body.id).toBe(1)
+  });
+
   it('Allows updating on api/v2/:model with Token', async () => {
     let response = await mockRequest.post('/signin').auth(adminUser.username, adminUser.password);
     let parsedResponse = JSON.parse(response.text);
@@ -114,7 +122,8 @@ describe ('Auth API server',  () => {
       await mockRequest.put('/api/v1/food/3').send({name: 'Sauce', calories: 200, type: 'protein'});
       await mockRequest.delete('/api/v1/food/3')
       let response = await mockRequest.get('/api/v1/food');
+      let response2 = await mockRequest.get('/api/v1/food/2');
       expect(response.body.length).toBe(2)
-
+      expect(response2.body.id).toBe(2);
     });
 });
