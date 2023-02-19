@@ -36,7 +36,7 @@ npm test
 
 #### UML & WRRC
 
-![Lab-04 UML](assets/lab-08-uml.png)
+![Lab-08 UML](assets/lab-08-uml.png)
 
 #### Attribution
 
